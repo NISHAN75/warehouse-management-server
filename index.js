@@ -31,11 +31,25 @@ async function run() {
       res.send(products);
     });
     app.get('/inventory/:id', async(req,res) =>{
-      console.log(req.params)
       const id= req.params.id;
       const query={_id: ObjectId(id)};
       const product= await productsCollection.findOne(query);
       res.send(product); 
+    });
+    // update user
+    app.put('/inventory/:id', async(req,res) =>{
+      const id = req.params.id;
+      const updateQuantity=req.body;
+      const filter = {_id: ObjectId(id)};
+      const options = {upsert: true};
+      const updateDoc= {
+        $set: {
+          quantity:updateQuantity.addQuantity 
+        }
+      };
+
+      const result= await productsCollection.updateOne(filter,updateDoc,options);
+      res.send(result)
     })
 
 
