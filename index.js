@@ -71,8 +71,14 @@ async function run() {
       const query = {_id:ObjectId(id)}
       const result= await productsCollection.deleteOne(query);
       res.send(result);
-    })
-
+    });
+    // my items delete
+    app.delete('/myItems/:id', async(req,res) =>{
+      const id=req.params.id;
+      const query = {_id:ObjectId(id)}
+      const result= await productsCollection.deleteOne(query);
+      res.send(result);
+    });
 
 
 
